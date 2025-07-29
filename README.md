@@ -5,16 +5,8 @@ Prerequisites
 Python 3.8 or higher
 
 XAMPP (Apache + MySQL)
-
-Git
-
-Installation
-Clone the repository
-
-bash
-git clone https://github.com/yourusername/secure-login-system.git
-cd secure-login-system
-Create virtual environment
+# 1 unpack & enter project
+unzip secure_login_system.zip && cd secure_login_system
 
 bash
 python -m venv venv
