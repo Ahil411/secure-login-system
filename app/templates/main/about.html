@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <h1 class="text-center mb-4">About Secure Login System</h1>
+
+        <div class="card shadow">
+            <div class="card-body">
+                <p class="lead">
+                    This is a comprehensive secure login system built with Flask that demonstrates 
+                    modern web security best practices and cybersecurity principles.
+                </p>
+
+                <h3>Project Overview</h3>
+                <p>
+                    This system was developed as part of a cybersecurity internship project to showcase 
+                    secure software development practices. It incorporates multiple layers of security 
+                    to protect against common web application vulnerabilities.
+                </p>
+
+                <h3>Key Features</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>Secure Authentication:</strong> bcrypt password hashing</li>
+                            <li><strong>JWT Tokens:</strong> Stateless authentication</li>
+                            <li><strong>Role-Based Access:</strong> Admin and User roles</li>
+                            <li><strong>Account Lockout:</strong> Brute force protection</li>
+                            <li><strong>CAPTCHA:</strong> Bot protection</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>SQL Injection Prevention:</strong> Parameterized queries</li>
+                            <li><strong>CSRF Protection:</strong> Built-in Flask-WTF protection</li>
+                            <li><strong>Security Logging:</strong> Comprehensive audit trails</li>
+                            <li><strong>Input Validation:</strong> Server-side validation</li>
+                            <li><strong>Session Management:</strong> Secure session handling</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Technology Stack</h3>
+                <div class="row text-center">
+                    <div class="col-md-3 mb-3">
+                        <div class="bg-light p-3 rounded">
+                            <i class="fab fa-python text-primary" style="font-size: 2rem;"></i>
+                            <h6 class="mt-2">Python</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="bg-light p-3 rounded">
+                            <i class="fas fa-flask text-danger" style="font-size: 2rem;"></i>
+                            <h6 class="mt-2">Flask</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="bg-light p-3 rounded">
+                            <i class="fas fa-database text-warning" style="font-size: 2rem;"></i>
+                            <h6 class="mt-2">MySQL</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="bg-light p-3 rounded">
+                            <i class="fab fa-bootstrap text-primary" style="font-size: 2rem;"></i>
+                            <h6 class="mt-2">Bootstrap</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Security Principles</h3>
+                <p>This application follows the OWASP security guidelines and implements:</p>
+                <ul>
+                    <li>Defense in depth security architecture</li>
+                    <li>Principle of least privilege</li>
+                    <li>Secure by design approach</li>
+                    <li>Regular security auditing and logging</li>
+                    <li>Input validation and output encoding</li>
+                </ul>
+
+                <div class="alert alert-info mt-4">
+                    <h5><i class="fas fa-graduation-cap"></i> Educational Purpose</h5>
+                    <p class="mb-0">
+                        This project serves as a learning resource for understanding web security 
+                        implementations and secure coding practices in Python Flask applications.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-5">Security Features</h1>
+
+    <div class="row">
+        <!-- Authentication Features -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100 shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4><i class="fas fa-lock"></i> Authentication Security</h4>
+                </div>
+                <div class="card-body">
+                    <div class="feature-item mb-3">
+                        <h6><i class="fas fa-key text-warning"></i> Password Hashing</h6>
+                        <p class="small text-muted">
+                            Passwords are hashed using bcrypt with salt rounds for maximum security.
+                            No plaintext passwords are stored in the database.
+                        </p>
+                    </div>
+
+                    <div class="feature-item mb-3">
+                        <h6><i class="fas fa-id-card text-info"></i> JWT Authentication</h6>
+                        <p class="small text-muted">
+                            JSON Web Tokens provide stateless authentication with configurable 
+                            expiration times and refresh token support.
+                        </p>
+                    </div>
+
+                    <div class="feature-item mb-3">
+                        <h6><i class="fas fa-shield-alt text-success"></i> Session Security</h6>
+                        <p class="small text-muted">
+                            Secure session management with CSRF protection and secure cookie settings.
+                        </p>
+                    </div>
+
+                    <div class="feature-item">
+                        <h6><i class="fas fa-user-check text-primary"></i> Password Strength</h6>
+                        <p class="small text-muted">
+                            Enforced password complexity requirements including uppercase, lowercase, 
+                            numbers, and special characters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Access Control Features -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100 shadow">
+                <div class="card-header bg-success text-white">
+                    <h4><i class="fas fa-users-cog"></i> Access Control</h4>
+                </div>
+                <div class="card-body">
+                    <div class="feature-item mb-3">
+                        <h6><i class="fas fa-user-tag text-danger"></i> Role-Based Access Control</h6>
+                        <p class="small text-muted">
+                            Users are assigned roles (Admin/User) with different permission levels 
+                            and access to specific features.
+                        </p>
+                    </div>
+
+                    <div class="feature-item mb-3">
+                        <h6><i class="fas fa-route text-warning"></i> Protected Routes</h6>
+                        <p class="small text-muted">
+                            Route-level authentication and authorization decorators ensure only 
+                            authorized users can access sensitive areas.
+                        </p>
+                    </div>
+
+                    <div class="feature-item mb-3">
+                        <h6><i class="fas fa-eye text-info"></i> Permission Checking</h6>
+                        <p class="small text-muted">
+                            Dynamic permission checking throughout the application based on 
+                            user roles and account status.
+                        </p>
+                    </div>
+
+                    <div class="feature-item">
+                        <h6><i class="fas fa-ban text-danger"></i> Access Denial</h6>
+                        <p class="small text-muted">
+                            Proper error handling for unauthorized access attempts with 
+                            appropriate HTTP status codes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attack Prevention -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100 shadow">
+                <div class="card-header bg-warning text-white">
+                    <h4><i class="fas fa-shield-virus"></i> Attack Prevention</h4>
+                </div>
+                <div class="card-body">
+                    <div class="feature-item mb-3">
+                        <h6><i class="fas fa-database text-danger"></i> SQL Injection Prevention</h6>
+                        <p class="small text-muted">
+                            All database queries use parameterized statements and ORM to prevent 
+                            SQL injection attacks.
+                        </p>
+                    </div>
+
+                    <div class="feature-item mb-3">
+                        <h6><i class="fas fa-robot text-primary"></i> CAPTCHA Protection</h6>
+                        <p class="small text-muted">
+                            Google reCAPTCHA integration prevents automated bot attacks on 
+                            login and registration forms.
+                        </p>
+                    </div>
+
+                    <div class="feature-item mb-3">
+                        <h6><i class="fas fa-lock text-warning"></i> Account Lockout</h6>
+                        <p class="small text-muted">
+                            Automatic account lockout after multiple failed login attempts 
+                            prevents brute force attacks.
+                        </p>
+                    </div>
+
+                    <div class="feature-item">
+                        <h6><i class="fas fa-times-circle text-danger"></i> CSRF Protection</h6>
+                        <p class="small text-muted">
+                            Cross-Site Request Forgery protection on all forms using 
+                            Flask-WTF CSRF tokens.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monitoring & Logging -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100 shadow">
+                <div class="card-header bg-info text-white">
+                    <h4><i class="fas fa-chart-line"></i> Monitoring & Logging</h4>
+                </div>
+                <div class="card-body">
+                    <div class="feature-item mb-3">
+                        <h6><i class="fas fa-sign-in-alt text-success"></i> Login Monitoring</h6>
+                        <p class="small text-muted">
+                            All login attempts are logged with IP addresses, user agents, 
+                            and timestamps for security analysis.
+                        </p>
+                    </div>
+
+                    <div class="feature-item mb-3">
+                        <h6><i class="fas fa-file-alt text-primary"></i> Security Events</h6>
+                        <p class="small text-muted">
+                            Comprehensive logging of security events including failed logins, 
+                            account lockouts, and administrative actions.
+                        </p>
+                    </div>
+
+                    <div class="feature-item mb-3">
+                        <h6><i class="fas fa-search text-warning"></i> Audit Trails</h6>
+                        <p class="small text-muted">
+                            Complete audit trails for user actions and system events for 
+                            forensic analysis and compliance.
+                        </p>
+                    </div>
+
+                    <div class="feature-item">
+                        <h6><i class="fas fa-bell text-danger"></i> Real-time Alerts</h6>
+                        <p class="small text-muted">
+                            Real-time monitoring capabilities for detecting suspicious 
+                            activities and security incidents.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-5">
+        <div class="card bg-light">
+            <div class="card-body">
+                <h4>Experience Security in Action</h4>
+                <p class="lead">See these features in action by creating an account and exploring the system.</p>
+                {% if not current_user.is_authenticated %}
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg me-2">
+                        <i class="fas fa-user-plus"></i> Register Now
+                    </a>
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('main.dashboard') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

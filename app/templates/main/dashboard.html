@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+    <div class="text-muted">
+        Welcome back, <strong>{{ current_user.username }}</strong>!
+    </div>
+</div>
+
+<!-- User Info Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white shadow">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6 class="text-uppercase">Your Role</h6>
+                        <h4 class="mb-0">
+                            {% for role in stats.user_role %}
+                                {{ role }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </h4>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-user-tag fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-success text-white shadow">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6 class="text-uppercase">Total Users</h6>
+                        <h4 class="mb-0">{{ stats.total_users }}</h4>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-users fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-info text-white shadow">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6 class="text-uppercase">Last Login</h6>
+                        <h6 class="mb-0">
+                            {% if stats.last_login %}
+                                {{ stats.last_login.strftime('%m/%d/%Y') }}
+                            {% else %}
+                                First Login
+                            {% endif %}
+                        </h6>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-clock fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-warning text-white shadow">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6 class="text-uppercase">Security Status</h6>
+                        <h6 class="mb-0">
+                            {% if current_user.is_locked() %}
+                                Locked
+                            {% else %}
+                                Active
+                            {% endif %}
+                        </h6>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-shield-alt fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0"><i class="fas fa-bolt"></i> Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-4 mb-3">
+                        <a href="{{ url_for('main.profile') }}" class="btn btn-outline-primary btn-lg w-100">
+                            <i class="fas fa-user fa-2x d-block mb-2"></i>
+                            View Profile
+                        </a>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <a href="{{ url_for('auth.change_password') }}" class="btn btn-outline-warning btn-lg w-100">
+                            <i class="fas fa-key fa-2x d-block mb-2"></i>
+                            Change Password
+                        </a>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <a href="{{ url_for('main.users') }}" class="btn btn-outline-success btn-lg w-100">
+                            <i class="fas fa-users fa-2x d-block mb-2"></i>
+                            View Users
+                        </a>
+                    </div>
+                </div>
+
+                {% if current_user.has_role('Admin') %}
+                <hr>
+                <h6 class="text-muted">Admin Actions</h6>
+                <div class="row text-center">
+                    <div class="col-md-4 mb-3">
+                        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-danger btn-lg w-100">
+                            <i class="fas fa-cogs fa-2x d-block mb-2"></i>
+                            Admin Panel
+                        </a>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <a href="{{ url_for('admin.users') }}" class="btn btn-outline-info btn-lg w-100">
+                            <i class="fas fa-users-cog fa-2x d-block mb-2"></i>
+                            User Management
+                        </a>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <a href="{{ url_for('admin.security_logs') }}" class="btn btn-outline-secondary btn-lg w-100">
+                            <i class="fas fa-file-alt fa-2x d-block mb-2"></i>
+                            Security Logs
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="fas fa-info-circle"></i> Account Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-2">
+                    <strong>Username:</strong> {{ current_user.username }}
+                </div>
+                <div class="mb-2">
+                    <strong>Email:</strong> {{ current_user.email }}
+                </div>
+                <div class="mb-2">
+                    <strong>Member Since:</strong> {{ current_user.created_at.strftime('%B %Y') }}
+                </div>
+                <div class="mb-2">
+                    <strong>Failed Attempts:</strong> 
+                    <span class="badge bg-{{ 'warning' if current_user.failed_login_attempts > 0 else 'success' }}">
+                        {{ current_user.failed_login_attempts }}
+                    </span>
+                </div>
+
+                {% if stats.recent_logins %}
+                <hr>
+                <h6 class="text-muted">Recent Activity</h6>
+                {% for login in stats.recent_logins[:3] %}
+                <div class="small text-muted mb-1">
+                    <i class="fas fa-sign-in-alt"></i> 
+                    {{ login.timestamp.strftime('%m/%d %I:%M %p') }}
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

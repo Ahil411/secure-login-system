@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-shield-alt text-danger"></i> Admin Dashboard</h2>
+    <div class="badge bg-danger fs-6">ADMIN ACCESS</div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Users</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.total_users }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Admin Users</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.admin_users }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user-shield fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">New Users (7 days)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.new_users_week }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user-plus fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Locked Accounts</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.locked_accounts }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-lock fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Login Statistics -->
+<div class="row mb-4">
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Today's Login Statistics</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <div class="h4 mb-0 text-success">{{ stats.successful_logins_today }}</div>
+                        <div class="small text-gray-500">Successful Logins</div>
+                    </div>
+                    <div class="col-6 text-center">
+                        <div class="h4 mb-0 text-danger">{{ stats.failed_logins_today }}</div>
+                        <div class="small text-gray-500">Failed Attempts</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Quick Actions</h6>
+            </div>
+            <div class="card-body text-center">
+                <a href="{{ url_for('admin.users') }}" class="btn btn-primary btn-sm mb-2 me-2">
+                    <i class="fas fa-users"></i> Manage Users
+                </a>
+                <a href="{{ url_for('admin.security_logs') }}" class="btn btn-info btn-sm mb-2 me-2">
+                    <i class="fas fa-file-alt"></i> Security Logs
+                </a>
+                <a href="{{ url_for('admin.login_attempts') }}" class="btn btn-warning btn-sm mb-2">
+                    <i class="fas fa-sign-in-alt"></i> Login Attempts
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Security Events -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Recent Security Events</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Action</th>
+                        <th>User</th>
+                        <th>Details</th>
+                        <th>IP Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in stats.recent_events %}
+                    <tr>
+                        <td>{{ event.timestamp.strftime('%m/%d/%Y %I:%M %p') }}</td>
+                        <td>
+                            <span class="badge bg-{{ 
+                                'success' if 'SUCCESS' in event.action else 
+                                'danger' if 'FAILED' in event.action else 
+                                'warning' if 'LOCKED' in event.action else 'primary' 
+                            }}">
+                                {{ event.action }}
+                            </span>
+                        </td>
+                        <td>
+                            {% if event.user_id %}
+                                {{ event.user.username if event.user else 'Unknown' }}
+                            {% else %}
+                                <span class="text-muted">System</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ event.details or '-' }}</td>
+                        <td>{{ event.ip_address }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center mt-3">
+            <a href="{{ url_for('admin.security_logs') }}" class="btn btn-primary">
+                View All Security Logs
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
